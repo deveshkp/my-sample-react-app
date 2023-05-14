@@ -13,30 +13,28 @@ function App() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setIsLoading(true);
-    setErrorMessage("");
-    console.log('Input text:', inputText);
     try {
-      const response = await axios.post(
-        'http://127.0.0.1:5000/process_text',
-        { input_text: inputText },
-        { headers: { 'Content-Type': 'application/json' } }
-      );
-      console.log('Response:', response.data);
-      setOutputText(response.data.output_text);
+      const response = await fetch('http://localhost:5000/process_text', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({input_text: inputText})
+      });
+      const data = await response.json();
+      setOutputText(data.output_text);
       setInputText("");
     } catch (error) {
       console.error(error);
-      setErrorMessage("An error occurred. Please try again later.");
+      // handle error here
     }
-    setIsLoading(false);
-};
-
-
+  };
   
+  
+
   return (
     <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh'}}>
-      <h1 style={{marginBottom: '100px'}}>Data Weavers - Data Masking Platform</h1>
+      <h1>Data Weavers - Data Masking Platform</h1>
       <div style={{width: '50%', textAlign: 'center', marginBottom: '20px'}}>
         <form onSubmit={handleSubmit}>
           <input
