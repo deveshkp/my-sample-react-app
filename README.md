@@ -1,4 +1,66 @@
+#  Data Masking Platform
 
+This is a React app for the  Data Masking Platform. It provides a user interface to interact with a backend service that masks sensitive data in text.
+
+## Features
+
+- Enter text to be processed and masked.
+- Submit the text to the backend service for processing.
+- Display the masked output text.
+- Handle error cases gracefully.
+
+## Installation
+
+1. Clone the repository:
+
+   ```
+   git clone https://github.com/your/repository.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```
+   cd project-directory
+   ```
+
+3. Install the dependencies:
+
+   ```
+   npm install
+   ```
+
+## Usage
+
+1. Start the development server:
+
+   ```
+   npm start
+   ```
+
+2. Access the app in your browser at `http://localhost:3000`.
+
+3. Enter the text you want to process in the input field.
+
+4. Click the "Submit" button to send the text to the backend service for processing.
+
+5. The processed and masked output will be displayed below the input field.
+
+## Configuration
+
+The app is configured to send requests to the backend service at `http://127.0.0.1:5000/process_text`. If your backend service is running on a different URL, you can modify the endpoint in the `handleSubmit` function of the `App` component.
+
+## Technologies Used
+
+- React: JavaScript library for building user interfaces.
+- Axios: Promise-based HTTP client for making API requests.
+
+## Contributing
+
+Contributions are welcome! If you have any suggestions, bug reports, or feature requests, please open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
 ner model code -  Here's an explanation of the code:
 
