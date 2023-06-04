@@ -1,70 +1,30 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+ner model code -  Here's an explanation of the code:
 
-In the project directory, you can run:
+1. The code begins by importing the necessary libraries: `csv` for reading training data from a CSV file, `spacy` for natural language processing, `random` for shuffling the training data, and `Example` from `spacy.training.example` for creating training examples.
 
-### `npm start`
+2. The function `offsets_to_biluo_tags` converts the entity offsets to a list of BIO (beginning-inside-outside) tags. It takes a spaCy `doc` object and a list of `entities` as input and returns a list of tags.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+3. The function `train_ner_model` trains a named entity recognition (NER) model using the provided training data. It takes `training_data` as input, which is a list of tuples containing the full text, masked text, entity spans, and other information.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+   - It initializes a blank NER model using `spacy.blank("en")`.
+   - It adds the NER component to the pipeline of the model.
+   - It extracts the unique entity labels from the training data and adds them as labels in the NER component.
+   - It prepares the training data in spaCy format by converting the entity spans to the required format.
+   - It trains the NER model using the FastText algorithm for a specified number of iterations.
+   - Finally, it returns the trained NER model.
 
-### `npm test`
+4. The code reads the training data from a CSV file named `data.csv` and stores it in the `training_data` list. The CSV file should have columns for full text, masked text, entity spans, PII (Personally Identifiable Information) entities, and other entities.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+5. The `train_ner_model` function is called with the `training_data` to obtain the trained NER model.
 
-### `npm run build`
+6. The trained NER model is saved to disk using the `to_disk` method, and it is stored in a directory named `ner_model`.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+7. The code tests the NER model on a sample text by creating a spaCy `doc` object using the `ner_model` and the sample text.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+8. The `masked_text` variable is initialized with the sample text. Then, for each entity (`ent`) in the `doc.ents`, the corresponding entity text is replaced with the string "{{MASKED}}".
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+9. Finally, the `masked_text` is printed, which contains the sample text with the identified entities replaced by "{{MASKED}}".
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This code trains a NER model using the provided training data and demonstrates its usage by masking the entities in a sample text.
